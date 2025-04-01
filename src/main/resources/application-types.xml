@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="create-employee-metadata" format="json">
+      <types:shape format="weave" example="examples/create-employee-metadata.json"><![CDATA[%dw 2.0
+
+type create_employee_metadata = {|
+  status: Number {"typeId": "int"}, 
+  message: String
+|} {"example": "{\\\"status\\\":200,\\\"message\\\":\\\"success\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="update-employee-metadata" format="xml">
+      <types:example format="xml" element="response" location="examples/update-employee-metadata.xml"/>
+    </types:type>
+    <types:type name="get-emploee-by-id-metadata" format="json">
+      <types:shape format="weave" example="examples/get-emploee-by-id-metadata.json"><![CDATA[%dw 2.0
+
+type get_emploee_by_id_metadata = {|
+  employeeID: Number {"typeId": "int"}, 
+  employeeName: String, 
+  employeeStatus: String
+|} {"example": "{\\\"employeeID\\\":100,\\\"employeeName\\\":\\\"Psdv\\\",\\\"employeeStatus\\\":\\\"Active\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="get-all-employee-metadata" format="json">
+      <types:shape format="weave" example="examples/get-all-employee.json"><![CDATA[%dw 2.0
+
+type get_all_employee_metadata = Array<{|  employeeID: Number {"typeId": "int"},   employeeName: String,   employeeStatus: String|}> {"example": "[{\\\"employeeID\\\":100,\\\"employeeName\\\":\\\"Psdv\\\",\\\"employeeStatus\\\":\\\"Active\\\"},{\\\"employeeID\\\":100,\\\"employeeName\\\":\\\"Psdv\\\",\\\"employeeStatus\\\":\\\"Active\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#a39675fd-f274-486d-b7fb-fd88fa4dc45f">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="create-employee-metadata"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#1bfa6846-c1cc-4950-889e-119979af826f">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="update-employee-metadata"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#69aeb11f-675f-4724-b56e-66a6cec632fb">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="get-emploee-by-id-metadata"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#80c754a6-5760-4d6a-9c79-1b3aa2d7d997">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="get-all-employee-metadata"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#01ebe99c-8f42-4c86-bd78-6634900ff99e">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="create-employee-metadata"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

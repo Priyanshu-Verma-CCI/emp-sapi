@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="update-employeeFlow" doc:id="1d7df98f-f480-49de-aa57-17141bb5ebb2" >
+		<http:listener doc:name="Listener" doc:id="939f82f5-13f5-45b7-be2b-1dc2c1abf413" config-ref="HTTP_Listener_config" path="update-employee" allowedMethods="PUT"/>
+		<logger level="INFO" doc:name="Start Log" doc:id="c9af0393-1126-4e45-ba45-60c59b249e26" message='#["The flow has been started": payload]'/>
+		<db:update doc:name="Update Employee" doc:id="feba096c-8b7a-4cc1-8d0d-8524cc4b9440" config-ref="Database_Config">
+			<db:sql ><![CDATA[update emp set emp_status=:empstatus where emp_id=:empid]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	empstatus: payload.employee.employeeStatus,
+	empid: payload.employee.employeeID
+}]]]></db:input-parameters>
+		</db:update>
+		<logger level="INFO" doc:name="Logger" doc:id="d6ce6058-bc46-40ce-ba97-74a4e43c63c2" message='#["after update command": payload]'/>
+		<ee:transform doc:name="Set Response" doc:id="1bfa6846-c1cc-4950-889e-119979af826f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	response: {
+		status: 200,
+		message: "success"
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Log" doc:id="a1ab8719-455c-4c40-a579-a3ab7ce5df56" message="The flow has been ended"/>
+	</flow>
+</mule>
