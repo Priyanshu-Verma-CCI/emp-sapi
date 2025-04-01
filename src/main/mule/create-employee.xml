@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	</db:config>
 	<flow name="create-employeeFlow" doc:id="af5586ea-3e17-4ed3-b251-3e18090e56b8" >
 		<http:listener doc:name="Create Employee Listener" doc:id="87536201-ee2c-404d-899b-6279f5ba4aeb" config-ref="HTTP_Listener_config" path="create-employee"/>
-		<logger level="INFO" doc:name="Start Log" doc:id="7081590a-da9b-4c46-b9b8-80465e4e054b" message="The create Employee flow has started Successfuly"/>
+		<logger level="INFO" doc:name="Start Log" doc:id="7081590a-da9b-4c46-b9b8-80465e4e054b" message="The create Employee flow has started"/>
 		<db:insert doc:name="Insert Employee" doc:id="74761dba-25b4-4c45-a6c2-929241f45d2b" config-ref="Database_Config1">
 			<db:sql ><![CDATA[insert into emp(emp_id,emp_name,emp_status) values(:empID,:empName,:empStatus)]]></db:sql>
 			<db:input-parameters ><![CDATA[#[{
