@@ -92,14 +92,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-email-connector</artifactId>
+			<version>1.7.4</version>
 			<artifactId>mule-db-connector</artifactId>
 			<version>1.14.13</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.connectors</groupId>
-			<artifactId>mule-ftp-connector</artifactId>
-			<version>2.0.0</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
